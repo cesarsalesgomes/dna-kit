@@ -13,7 +13,7 @@ jobs:
       # 1) Setup node version
       - uses: actions/setup-node@v2
         with:
-          node-version: "18"
+          node-version: "16"
 
       # 2) Cache npm installed modules on .npm
       - uses: actions/cache@v2
