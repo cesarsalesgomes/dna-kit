@@ -1,0 +1,66 @@
+version: "3"
+services:
+  # Postgres
+  database:
+    container_name: database
+    image: postgres:13.5
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: "directus"
+      POSTGRES_PASSWORD: "directus"
+      POSTGRES_DB: "directus"
+
+  cache:
+    container_name: cache
+    image: redis:6
+
+  # Directus
+  directus:
+    container_name: directus
+    image: directus/directus:latest
+    ports:
+      - ${DIRECTUS_PORT}:${DIRECTUS_PORT}
+    volumes:
+      - ./directus/uploads:/directus/uploads
+      - ./directus/migrations:/directus/migrations
+    command:
+      - /bin/sh
+      - -c
+      - |
+        npx directus schema apply --yes ./migrations/schema.yaml
+        npx directus bootstrap
+        npx directus start
+    depends_on:
+      - cache
+      - database
+    environment:
+      KEY: ${DIRECTUS_KEY}
+      SECRET: ${DIRECTUS_SECRET}
+
+      DB_CLIENT: "pg"
+      DB_HOST: "database"
+      DB_PORT: "5432"
+      DB_DATABASE: "directus"
+      DB_USER: "directus"
+      DB_PASSWORD: "directus"
+
+      CACHE_ENABLED: "true"
+      CACHE_STORE: "redis"
+      CACHE_REDIS: ${REDIS_URL}
+      CACHE_AUTO_PURGE: "true"
+      CACHE_PERMISSIONS: "true"
+
+      ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD}
+
+      STORAGE_LOCATIONS: "s3"
+      STORAGE_S3_DRIVER: "s3"
+      STORAGE_S3_KEY: ${STORAGE_S3_KEY}
+      STORAGE_S3_SECRET: ${STORAGE_S3_SECRET}
+      STORAGE_S3_BUCKET: ${STORAGE_S3_BUCKET}
+      STORAGE_S3_REGION: ${STORAGE_S3_REGION}
+
+      ACCESS_TOKEN_TTL: 1d
+
+      CORS_ENABLED: "true"

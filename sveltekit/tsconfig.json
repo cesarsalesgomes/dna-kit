@@ -1,0 +1,37 @@
+{
+  "extends": "./.svelte-kit/tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      "$assets/*": ["src/assets/*"],
+      "$components/*": ["src/components/*"],
+      "$config/*": ["src/config/*"],
+      "$constants/*": ["src/constants/*"],
+      "$enums/*": ["src/enums/*"],
+      "$features/*": ["src/features/*"],
+      "$hooks/*": ["src/hooks/*"],
+      "$interfaces/*": ["src/interfaces/*"],
+      "$lib": ["src/lib"],
+      "$lib/*": ["src/lib/*"],
+      "$providers/*": ["src/providers/*"],
+      "$repository/*": ["src/repository/*"],
+      "$routes/*": ["src/routes/*"],
+      "$stores/*": ["src/stores/*"],
+      "$test/*": ["src/test/*"],
+      "$types/*": ["src/types/*"],
+      "$utils/*": ["src/utils/*"]
+    }
+  }
+  // Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
+  //
+  // If you want to overwrite includes/excludes, make sure to copy over the relevant includes/excludes
+  // from the referenced tsconfig.json - TypeScript does not merge them in
+}

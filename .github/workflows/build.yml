@@ -1,0 +1,34 @@
+name: Build
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      # 1) Setup node version
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+
+      # 2) Cache npm installed modules on .npm
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # 3) Install Sveltekit node_modules
+      - name: Install Sveltekit dependencies
+        run: npm install
+        working-directory: sveltekit
+
+      # 4) Build Sveltekit application
+      - name: Build Sveltekit
+        run: yarn build
+        working-directory: sveltekit

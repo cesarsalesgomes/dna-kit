@@ -1,0 +1,11 @@
+{
+  "name": "dna-migration",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Script to export the schemas snapshots created by the native Directus command added on the PR (https://github.com/directus/directus/pull/7939) to easily export/import the data model from/to various Directus instances.",
+  "scripts": {
+    "start": "node export"
+  },
+  "author": "",
+  "license": "ISC"
+}
