@@ -1,11 +1,10 @@
 import { error as svelteKitError } from '@sveltejs/kit';
-import { Kysely, PostgresDialect } from 'kysely';
-import pg from 'pg';
+import { Kysely, MysqlDialect } from 'kysely';
+import { createPool } from 'mysql2';
 
 import { FORBIDDEN_ERROR } from '$constants/error.constants';
 import type { KyselySchema } from '$types/directus-schema.type';
 
-import { dev } from '$app/environment';
 import {
   KYSELY_DATABASE, KYSELY_HOST, KYSELY_USER, KYSELY_PASSWORD, KYSELY_PORT,
 } from '$env/static/private';
@@ -15,15 +14,13 @@ export default class KyselyRepository {
 
   static getInstance() {
     if (!KyselyRepository.instance) {
-      const dialect = new PostgresDialect({
-        pool: new pg.Pool({
+      const dialect = new MysqlDialect({
+        pool: createPool({
           database: KYSELY_DATABASE,
           host: KYSELY_HOST,
           user: KYSELY_USER,
           password: KYSELY_PASSWORD,
           port: Number(KYSELY_PORT),
-          max: 10,
-          ssl: !dev,
         }),
       });
 

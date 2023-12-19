@@ -1,16 +1,26 @@
 version: "3"
 services:
-  # Postgres
+  # MySQL
   database:
     container_name: database
-    image: postgres:13.5
+    image: mysql:8.0
+    ports:
+      - 3306:3306
     volumes:
-      - ./database:/var/lib/postgresql/data
+      - ./database:/var/lib/mysql
+    command:
+      [
+          "--character-set-server=utf8mb4",
+          "--collation-server=utf8mb4_unicode_ci",
+          "--default-authentication-plugin=caching_sha2_password",
+      ]
     environment:
-      POSTGRES_USER: "directus"
-      POSTGRES_PASSWORD: "directus"
-      POSTGRES_DB: "directus"
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: "directus"
+      MYSQL_PASSWORD: "directus"
+      MYSQL_DATABASE: "directus"
 
+  # Redis 
   cache:
     container_name: cache
     image: redis:6
@@ -20,10 +30,11 @@ services:
     container_name: directus
     image: directus/directus:latest
     ports:
-      - ${DIRECTUS_PORT}:${DIRECTUS_PORT}
+      - 8055:8055
     volumes:
       - ./directus/uploads:/directus/uploads
       - ./directus/migrations:/directus/migrations
+      - ./directus/extensions:/directus/extensions
     command:
       - /bin/sh
       - -c
@@ -38,18 +49,16 @@ services:
       KEY: ${DIRECTUS_KEY}
       SECRET: ${DIRECTUS_SECRET}
 
-      DB_CLIENT: "pg"
+      PUBLIC_URL: "http://localhost:8055"
+
+      DB_CLIENT: "mysql"
       DB_HOST: "database"
-      DB_PORT: "5432"
+      DB_PORT: "3306"
       DB_DATABASE: "directus"
       DB_USER: "directus"
       DB_PASSWORD: "directus"
 
-      CACHE_ENABLED: "true"
-      CACHE_STORE: "redis"
-      CACHE_REDIS: ${REDIS_URL}
-      CACHE_AUTO_PURGE: "true"
-      CACHE_PERMISSIONS: "true"
+      REDIS: ${REDIS}
 
       ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL}
       ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD}
@@ -64,3 +73,18 @@ services:
       ACCESS_TOKEN_TTL: 1d
 
       CORS_ENABLED: "true"
+
+      AUTH_PROVIDERS: "google"
+      AUTH_GOOGLE_DRIVER: "openid"
+      AUTH_GOOGLE_ISSUER_URL: "https://accounts.google.com"
+      AUTH_GOOGLE_IDENTIFIER_KEY: "email"
+      AUTH_GOOGLE_ICON: "google"
+      AUTH_GOOGLE_LABEL: "Google"
+      AUTH_GOOGLE_ALLOW_PUBLIC_REGISTRATION: "true"
+      AUTH_GOOGLE_CLIENT_ID: ${AUTH_GOOGLE_CLIENT_ID}
+      AUTH_GOOGLE_CLIENT_SECRET: ${AUTH_GOOGLE_CLIENT_SECRET}
+      AUTH_GOOGLE_DEFAULT_ROLE_ID: ${AUTH_GOOGLE_DEFAULT_ROLE_ID}
+
+      REFRESH_TOKEN_COOKIE_DOMAIN: ${REFRESH_TOKEN_COOKIE_DOMAIN}
+      REFRESH_TOKEN_COOKIE_SECURE: "true"
+      REFRESH_TOKEN_COOKIE_SAME_SITE: "None"
