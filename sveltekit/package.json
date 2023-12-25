@@ -17,7 +17,7 @@
     "@sveltejs/kit": "^1.27.6",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.10",
-    "@types/cookie": "^0.5.1",
+    "@types/cookie": "^0.6.0",
     "@types/js-cookie": "^3.0.6",
     "@types/pg": "^8.10.9",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
