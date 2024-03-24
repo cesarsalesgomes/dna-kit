@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Button from '$lib/shadcn/components/ui/button/button.svelte';
+  import { Button } from '$lib/shadcn/components/ui';
 
   import LoadingSpinner from './spinner/LoadingSpinner.svelte';
 </script>

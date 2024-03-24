@@ -3,7 +3,7 @@
   import { onDestroy } from 'svelte';
 
   import { LoadingButton } from '$components/loading';
-  import { Button } from '$lib/shadcn/components/ui/button';
+  import { Button } from '$lib/shadcn/components/ui';
   import { fetchesBeingPerformedStore } from '$stores/fetches-being-performed.store';
 
   export let label: string;

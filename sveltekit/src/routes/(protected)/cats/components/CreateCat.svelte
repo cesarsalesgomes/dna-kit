@@ -5,7 +5,7 @@
   import InvalidateKeys from '$enums/invalidate-keys.enum';
   import { setNotificationOnSuccess } from '$features/notification/utils/notification.utils';
   import { DirectusClientSdk } from '$lib/directus';
-  import Button from '$lib/shadcn/components/ui/button/button.svelte';
+  import { Button, Input } from '$lib/shadcn/components/ui';
   import { invalidateWithLoading } from '$utils/svelte.utils';
 
   import { enhance } from '$app/forms';
@@ -31,13 +31,13 @@
           <label for="name" class="block text-sm font-medium text-gray-700">
             Name
           </label>
-          <input
-            type="text"
+          <Input
             id="name"
-            autoComplete="given-name"
-            class="mt-1 block w-full rounded-md border-gray-300 text-gray-700 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
-            bind:value={name}
-          />
+            type="text"
+            autocomplete="given-name"
+            required
+            class="mt-2 text-gray-700"
+            bind:value={name}/>
         </div>
         <Button type="submit">
           Create
