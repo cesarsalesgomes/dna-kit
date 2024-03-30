@@ -4,7 +4,7 @@
   import { BellSvg, XMarkSvg, MenuSvg } from '$components/svgs';
   import { BIRDS_ROUTE, CATS_ROUTE } from '$constants/route.constants';
   import { logout } from '$features/auth/utils';
-  import { Button } from '$lib/shadcn/components/ui';
+  import { Button, DropdownMenu } from '$lib/shadcn/components/ui';
   import type { DirectusUsers } from '$types/directus-schema.type';
 
   import Avatar from './Avatar.svelte';
@@ -14,7 +14,6 @@
   export let accessTokenFromServer: string;
 
   let showMenu: boolean;
-  let showUserMenu: boolean;
 
 </script>
 
@@ -56,40 +55,22 @@
         </button>
 
         <!-- Profile dropdown -->
-        <div class="relative ml-3">
-          <button type="button"
-            class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-            id="user-menu-button"
-            aria-expanded="false"
-            aria-haspopup="true"
-            on:click={() => { showUserMenu = !showUserMenu; }}>
-            <span class="sr-only">Open user menu</span>
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger class="
+            flex rounded-full bg-gray-800 text-sm ml-3
+            focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800
+          ">
             <Avatar me$={me$} accessTokenFromServer={accessTokenFromServer}/>
-          </button>
-
-          {#if showUserMenu}
-            <div class="absolute right-0 z-20 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-              role="menu"
-              aria-orientation="vertical"
-              aria-labelledby="user-menu-button"
-              tabindex="-1">
-              <!-- Active: "bg-gray-100", Not Active: "" -->
-              <a href="/"
-                class="block px-4 py-2 text-sm text-gray-700"
-                role="menuitem"
-                tabindex="-1"
-                id="user-menu-item-0">Your Profile</a>
-              <span
-                class="block px-4 py-2 text-sm text-gray-700 cursor-pointer"
-                role="menuitem"
-                tabindex="-1"
-                id="user-menu-item-2"
-                on:click={logout}
-                on:keypress={logout}
-              >Sign out</span>
-            </div>
-          {/if}
-        </div>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            <DropdownMenu.Group>
+              <DropdownMenu.Label>My Account</DropdownMenu.Label>
+              <DropdownMenu.Separator />
+              <DropdownMenu.Item>Profile</DropdownMenu.Item>
+              <DropdownMenu.Item on:click={logout}>Sign out</DropdownMenu.Item>
+            </DropdownMenu.Group>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
       </div>
     </div>
   </div>
