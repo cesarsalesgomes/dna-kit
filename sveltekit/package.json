@@ -18,7 +18,7 @@
     "@tailwindcss/typography": "^0.5.12",
     "@types/cookie": "^0.6.0",
     "@types/js-cookie": "^3.0.6",
-    "@types/pg": "^8.11.0",
+    "@types/pg": "^8.11.4",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "autoprefixer": "^10.4.19",
