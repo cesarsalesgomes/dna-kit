@@ -39,7 +39,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@directus/sdk": "^15.0.3",
+    "@directus/sdk": "^15.1.0",
     "bits-ui": "^0.21.1",
     "clsx": "^2.1.0",
     "js-cookie": "^3.0.5",
