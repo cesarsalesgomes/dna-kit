@@ -10,7 +10,7 @@ function checkOnLoginRoute({ pathname }: URL): boolean {
 }
 
 function getAccessTokenFromCookiesEvent(cookies: Cookies) {
-  return cookies.get(ACCESS_TOKEN_COOKIE_NAME);
+  return cookies.get(ACCESS_TOKEN_COOKIE_NAME) || '';
 }
 
 function redirectToHomeIfNoPathWasPassed({ pathname }: URL): boolean {
@@ -23,11 +23,11 @@ export const handle: Handle = async ({ event, resolve }) => {
   if (!checkOnLoginRoute(url)) {
     const accessToken = getAccessTokenFromCookiesEvent(event.cookies);
 
-    if (!accessToken) throw redirect(303, LOGIN_ROUTE);
+    if (!accessToken) redirect(303, LOGIN_ROUTE);
 
     const directusPayload = getPayloadFromAccessToken(accessToken);
 
-    if (checkAccessTokenExpired(directusPayload)) throw redirect(303, LOGIN_ROUTE);
+    if (checkAccessTokenExpired(directusPayload)) redirect(303, LOGIN_ROUTE);
 
     event.locals = {
       accessToken,

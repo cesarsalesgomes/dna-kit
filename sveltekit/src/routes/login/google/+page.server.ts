@@ -9,5 +9,5 @@ export const load = async ({ cookies }) => {
 
   cookies.set(ACCESS_TOKEN_COOKIE_NAME, accessToken ?? '', REFRESH_TOKEN_COOKIE_OPTIONS);
 
-  throw redirect(303, HOME_ROUTE);
+  redirect(303, HOME_ROUTE);
 };
