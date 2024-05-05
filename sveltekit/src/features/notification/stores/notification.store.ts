@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 import type { NotificationType } from '../enums';
-import type NotificationStoreType from '../types/notification-store.type';
+import type { NotificationStoreType } from '../types/notification-store.type';
 
 export const notificationStore = writable<NotificationStoreType>(null);
 
