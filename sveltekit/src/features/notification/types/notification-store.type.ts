@@ -7,4 +7,4 @@ interface NotificationStore {
 
 type NotificationStoreType = NotificationStore | null;
 
-export default NotificationStoreType;
+export type { NotificationStoreType };

@@ -5,7 +5,7 @@
   import { Button } from '$lib/shadcn/components/ui';
 
   import { notificationStore } from '../stores';
-  import type NotificationStoreType from '../types/notification-store.type';
+  import type { NotificationStoreType } from '../types/notification-store.type';
   import { hideNotification } from '../utils/notification.utils';
 
   import NotificationIcon from './NotificationIcon.svelte';

@@ -1,6 +1,6 @@
 import { ClientErrorCodes, ServerErrorCodes } from '$enums/error-codes.enum';
 import type GraphQLError from '$interfaces/graphql-error.interface';
-import type ErrorCodesType from 'src/types/error-codes.type';
+import type { ErrorCodesType } from '$types/error-codes.type';
 
 export function checkIfItsAnInvalidTokenError(code: ErrorCodesType) {
   if (
