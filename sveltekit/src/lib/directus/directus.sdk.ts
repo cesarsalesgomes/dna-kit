@@ -89,25 +89,27 @@ export class DirectusServerSdk extends DirectusSdk {
       return await this.getAuthenticatedClient(accessToken).request<T>(command);
     } catch (err) {
       if (checkIsDirectusError(err)) {
-        const error = getDirectusError(err as DirectusError);
-        const code = getGraphQlErrorCode(error);
+        const directusError = getDirectusError(err as DirectusError);
+        const code = getGraphQlErrorCode(directusError);
 
         if (checkIfItsAnInvalidTokenError(code)) {
-          throw redirect(303, LOGIN_ROUTE);
+          redirect(303, LOGIN_ROUTE);
         }
 
-        throw svelteKitError(500, error);
+        svelteKitError(500, directusError);
       }
 
-      throw svelteKitError(500, UNEXPECTED_SERVER_ERROR);
+      svelteKitError(500, UNEXPECTED_SERVER_ERROR);
+
+      return null;
     }
   }
 
   static googleLogin(refreshToken?: string) {
     const directusClient = this.getInstance().with(authentication());
 
-    if (!refreshToken) throw redirect(303, LOGIN_ROUTE);
+    if (!refreshToken) redirect(303, LOGIN_ROUTE);
 
-    return directusClient.request(refresh(refreshToken));
+    return directusClient.request(refresh('cookie', refreshToken));
   }
 }

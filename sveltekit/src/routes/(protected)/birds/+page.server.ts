@@ -3,14 +3,12 @@ import BirdRepository from '$repository/bird.repository';
 
 export const prerender = 'auto';
 
-export const load = async ({ locals, depends, isDataRequest }) => {
+export const load = async ({ locals, depends }) => {
   depends(InvalidateKeys.Birds);
 
-  const birds = BirdRepository.getBirds(locals.directusPayload);
+  const birds$ = BirdRepository.getBirds(locals.directusPayload);
 
   return {
-    streamed: {
-      birds$: isDataRequest ? birds : await birds,
-    },
+    birds$,
   };
 };

@@ -6,7 +6,7 @@
   export let data;
 </script>
 
-<Menu me$={data.streamed.me$} accessTokenFromServer={data.accessToken}/>
+<Menu me$={data.me$} accessTokenFromServer={data.accessToken}/>
 <LoadingLayoutOnFetching/>
 <ForbiddenAccessModal/>
 <div class="px-4 sm:px-12 md:px-24 lg:px-36 xl:px-48 2xl:px-60">

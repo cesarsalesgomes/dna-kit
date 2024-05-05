@@ -8,7 +8,7 @@
 
 <div class="prose flex flex-col dark:prose-invert">
   <h1 class="my-4">Birds</h1>
-  {#await data.streamed.birds$}
+  {#await data.birds$}
     <LoadingLayout/>
   {:then birds}
     {#if birds && checkIfIsArrayWithItens(birds)}

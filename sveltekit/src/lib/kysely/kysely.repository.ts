@@ -41,7 +41,7 @@ export default class KyselyRepository {
     for (const collection of collections) {
       const hasPermission = !!permissions.find((permission) => permission.collection === collection);
 
-      if (!hasPermission) throw svelteKitError(500, FORBIDDEN_ERROR);
+      if (!hasPermission) svelteKitError(500, FORBIDDEN_ERROR);
     }
   }
 
