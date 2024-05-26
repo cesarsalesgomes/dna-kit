@@ -48,7 +48,7 @@
     "js-cookie": "^3.0.5",
     "kysely": "^0.27.2",
     "lucide-svelte": "^0.378.0",
-    "mysql2": "^3.6.5",
+    "pg": "^8.11.5",
     "tailwind-merge": "^2.3.0",
     "tailwind-variants": "^0.2.1"
   }
