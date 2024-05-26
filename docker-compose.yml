@@ -11,6 +11,8 @@ services:
       POSTGRES_USER: "directus"
       POSTGRES_PASSWORD: "directus"
       POSTGRES_DB: "directus"
+      TZ: "GMT+0"
+      PGTZ: "GMT+0"
 
   cache:
     container_name: cache
