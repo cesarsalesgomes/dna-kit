@@ -1,5 +1,5 @@
 import type { ExpressionBuilder } from 'kysely';
-import { jsonObjectFrom } from 'kysely/helpers/mysql';
+import { jsonObjectFrom } from 'kysely/helpers/postgres';
 
 import type DirectusPayload from '$interfaces/directus-payload.interface';
 import { KyselyRepository } from '$lib/kysely';
