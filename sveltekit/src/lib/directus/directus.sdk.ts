@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import {
-  authentication, rest, type DirectusClient, createDirectus, staticToken, type RestClient, type RestCommand, type AuthenticationData, refresh,
+  authentication, rest, type DirectusClient, createDirectus, staticToken, type RestClient, type RestCommand, type AuthenticationData,
 } from '@directus/sdk';
 import { redirect, error as svelteKitError } from '@sveltejs/kit';
 
@@ -103,13 +103,5 @@ export class DirectusServerSdk extends DirectusSdk {
 
       return null;
     }
-  }
-
-  static googleLogin(refreshToken?: string) {
-    const directusClient = this.getInstance().with(authentication());
-
-    if (!refreshToken) redirect(303, LOGIN_ROUTE);
-
-    return directusClient.request(refresh('cookie', refreshToken));
   }
 }

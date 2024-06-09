@@ -1,12 +1,10 @@
-import type { CookieSerializeOptions } from 'cookie';
-
 import { dev } from '$app/environment';
 
 export const ACCESS_TOKEN_COOKIE_NAME = 'dna-access-token';
 
-export const REFRESH_TOKEN_COOKIE_NAME = 'directus_refresh_token';
+export const SESSION_TOKEN_COOKIE_NAME = 'directus_session_token';
 
-export const REFRESH_TOKEN_COOKIE_OPTIONS: CookieSerializeOptions = {
+export const SESSION_TOKEN_COOKIE_OPTIONS: import('cookie').CookieSerializeOptions & { path: string } = {
   path: '/',
   httpOnly: false,
   sameSite: 'strict',
