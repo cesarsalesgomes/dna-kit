@@ -1,0 +1,13 @@
+{
+  "name": "dna-kit-hono-bun",
+  "license": "MIT",
+  "scripts": {
+    "dev": "bun --watch src/main.ts"
+  },
+  "dependencies": {
+    "hono": "^4.4.4"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.3"
+  }
+}
