@@ -1,23 +1,6 @@
-import cats from '@features/cats';
-import { Hono } from 'hono';
-import { bearerAuth } from 'hono/bearer-auth';
-import { cors } from 'hono/cors';
-import { logger } from 'hono/logger';
+import bootstrapHono from '@system/bootstrap/hono.bootstrap';
+import boostrapKysely from '@system/bootstrap/kysely.bootstrap';
 
-const app = new Hono();
+await boostrapKysely();
 
-/* Cors */
-app.use('/*', cors());
-
-/* Logger */
-app.use(logger());
-
-/* Bearer Auth Middleware */
-const { HONO_STATIC_TOKEN } = Bun.env;
-
-app.use('/*', bearerAuth({ token: HONO_STATIC_TOKEN! }));
-
-/* Routes */
-app.route('/cats', cats);
-
-export default app;
+export default bootstrapHono();
