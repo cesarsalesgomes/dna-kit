@@ -4,3 +4,8 @@ updates:
     directory: "/sveltekit"
     schedule:
       interval: "weekly"
+
+  - package-ecosystem: "npm"
+    directory: "/hono"
+    schedule:
+      interval: "weekly"
