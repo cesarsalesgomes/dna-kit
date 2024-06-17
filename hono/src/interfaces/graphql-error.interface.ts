@@ -7,4 +7,4 @@ interface GraphQLError {
   extensions?: { code: ErrorCodesType };
 }
 
-export default GraphQLError;
+export type { GraphQLError };

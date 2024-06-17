@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import KyselyRepository from '@lib/kysely/kysely.repository';
 
 async function boostrapKysely() {

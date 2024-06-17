@@ -1,5 +1,6 @@
-import bootstrapHono from '@system/bootstrap/hono.bootstrap';
-import boostrapKysely from '@system/bootstrap/kysely.bootstrap';
+import { boostrapDirectus, boostrapKysely, bootstrapHono } from '@system/bootstrap';
+
+boostrapDirectus();
 
 await boostrapKysely();
 

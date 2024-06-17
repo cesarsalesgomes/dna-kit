@@ -17,5 +17,6 @@ export enum ClientErrorCodes {
 // 5xx: Server errors codes
 
 export enum ServerErrorCodes {
-  INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR'
+  INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR',
+  SERVICE_UNAVAILABLE = 'SERVICE_UNAVAILABLE',
 }

@@ -27,12 +27,14 @@
     "paths": {
       "@constants/*": ["./src/constants/*"],
       "@enums/*": ["./src/enums/*"],
+      "@errors/*": ["./src/errors/*"],
       "@features/*": ["./src/features/*"],
       "@interfaces/*": ["./src/interfaces/*"],
       "@lib/*": ["./src/lib/*"],
       "@repository/*": ["./src/repository/*"],
       "@system/*": ["./src/system/*"],
-      "@types/*": ["./src/types/*"]
+      "@types/*": ["./src/types/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   }
 }
