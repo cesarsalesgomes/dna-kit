@@ -1,6 +1,8 @@
+import { createItem } from '@directus/sdk';
 import type { ExpressionBuilder } from 'kysely';
 import { jsonObjectFrom } from 'kysely/helpers/postgres';
 
+import { DirectusSdk } from '@lib/directus';
 import { KyselyRepository } from '@lib/kysely';
 import type { KyselySchema } from '@types/directus-schema.type';
 
@@ -20,5 +22,9 @@ export default class CatRepository {
         .select('name')
         .whereRef('family.id', '=', 'cat.family'),
     ).as('family');
+  }
+
+  static createCat(name: string) {
+    return DirectusSdk.request(createItem('cat', { name }));
   }
 }

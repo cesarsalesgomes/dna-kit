@@ -1,7 +1,7 @@
+import { createForbiddenError, createHonoHttpException } from '@errors/error.factory';
 import { Kysely, PostgresDialect, sql } from 'kysely';
 import { Pool } from 'pg';
 
-import { FORBIDDEN_ERROR } from '@constants/error.constants';
 import type { KyselySchema } from '@types/directus-schema.type';
 
 export default class KyselyRepository {
@@ -10,7 +10,7 @@ export default class KyselyRepository {
   static getInstance() {
     if (!KyselyRepository.instance) {
       const {
-        KYSELY_DATABASE, KYSELY_HOST, KYSELY_USER, KYSELY_PASSWORD, KYSELY_PORT, DEV,
+        KYSELY_DATABASE, KYSELY_HOST, KYSELY_USER, KYSELY_PASSWORD, KYSELY_PORT, PROD,
       } = Bun.env;
 
       const dialect = new PostgresDialect({
@@ -21,7 +21,7 @@ export default class KyselyRepository {
           password: KYSELY_PASSWORD,
           port: Number(KYSELY_PORT),
           max: 10,
-          ssl: !DEV,
+          ssl: !!PROD,
         }),
       });
 
@@ -48,7 +48,7 @@ export default class KyselyRepository {
     for (const collection of collections) {
       const hasPermission = !!permissions.find((permission) => permission.collection === collection);
 
-      if (!hasPermission) throw FORBIDDEN_ERROR;
+      if (!hasPermission) throw createHonoHttpException(403, createForbiddenError());
     }
   }
 

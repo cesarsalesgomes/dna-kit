@@ -5,6 +5,7 @@
     "dev": "bun --watch src/main.ts"
   },
   "dependencies": {
+    "@directus/sdk": "^16.1.0",
     "hono": "^4.4.4",
     "kysely": "^0.27.3",
     "pg": "^8.12.0"

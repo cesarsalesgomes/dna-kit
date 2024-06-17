@@ -1,3 +1,4 @@
+import { honoErrorHandler } from '@errors/error.handler';
 import { Hono } from 'hono';
 import { bearerAuth } from 'hono/bearer-auth';
 import { cors } from 'hono/cors';
@@ -21,6 +22,9 @@ function bootstrapHono() {
 
   /* Routes */
   app.route('/cats', cats);
+
+  /* Error Handler */
+  app.onError(honoErrorHandler());
 
   return app;
 }
