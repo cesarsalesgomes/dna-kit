@@ -1,7 +1,8 @@
 import CatRepository from '@repository/cat.repository';
+import type { Cat } from '@types/directus-schema.type';
 
 export default class CatService {
-  static createCat(name: string) {
-    return CatRepository.createCat(name as string);
+  static createCat(cat: Cat) {
+    return CatRepository.createCat(cat);
   }
 }
