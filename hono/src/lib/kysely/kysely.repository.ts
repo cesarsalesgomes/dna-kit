@@ -1,8 +1,9 @@
-import { createForbiddenError, createHonoHttpException } from '@errors/error.factory';
 import { Kysely, PostgresDialect, sql } from 'kysely';
 import { Pool } from 'pg';
 
-import type { KyselySchema } from '@types/directus-schema.type';
+import { createForbiddenError, createHonoHttpException } from '@errors/error.factory';
+
+import type { KyselySchema } from '$types/directus-schema.type';
 
 export default class KyselyRepository {
   static instance: Kysely<KyselySchema>;

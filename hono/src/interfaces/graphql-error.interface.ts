@@ -1,4 +1,4 @@
-import type { ErrorCodesType } from '@types/error-codes.type';
+import type { ErrorCodesType } from '$types/error-codes.type';
 
 interface GraphQLError {
   message: string;

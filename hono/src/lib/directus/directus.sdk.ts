@@ -5,8 +5,9 @@ import {
 import { DNA_BACKEND_URL } from '@constants/system.constants';
 import { createHonoHttpException } from '@errors/error.factory';
 import type { DirectusError } from '@interfaces/directus-error.interface';
-import type { DirectusClients } from '@types/directus-clients.type';
-import type { DirectusSchema } from '@types/directus-schema.type';
+
+import type { DirectusClients } from '$types/directus-clients.type';
+import type { DirectusSchema } from '$types/directus-schema.type';
 
 export default class DirectusSdk {
   static instance: DirectusClient<DirectusSchema> & RestClient<DirectusSchema>;
