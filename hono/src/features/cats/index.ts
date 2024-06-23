@@ -21,4 +21,12 @@ app.post('/', async (c) => {
   return c.json(res);
 });
 
+app.post('/check', async (c) => {
+  const cat = await c.req.json<Cat>();
+
+  CatService.checkCat(cat);
+
+  return c.json(cat);
+});
+
 export default app;
