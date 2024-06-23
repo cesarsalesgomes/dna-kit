@@ -1,5 +1,7 @@
-import CatRepository from '@repository/cat.repository';
 import { Hono } from 'hono';
+
+import CatRepository from '@repository/cat.repository';
+import type { Cat } from '@types/directus-schema.type';
 
 import CatService from './cat.service';
 
@@ -12,11 +14,19 @@ app.get('/', async (c) => {
 });
 
 app.post('/', async (c) => {
-  const { name } = await c.req.json<{ name: string }>();
+  const cat = await c.req.json<Cat>();
 
-  const res = await CatService.createCat(name);
+  const res = await CatService.createCat(cat);
 
   return c.json(res);
+});
+
+app.post('/check', async (c) => {
+  const cat = await c.req.json<Cat>();
+
+  CatService.checkCat(cat);
+
+  return c.json(cat);
 });
 
 export default app;

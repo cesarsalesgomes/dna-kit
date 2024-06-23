@@ -2,16 +2,10 @@
 import {
   authentication, rest, type DirectusClient, createDirectus, staticToken, type RestClient, type RestCommand, type AuthenticationData,
 } from '@directus/sdk';
-import { redirect, error as svelteKitError } from '@sveltejs/kit';
 
-import { UNEXPECTED_SERVER_ERROR } from '$constants/error.constants';
-import { LOGIN_ROUTE } from '$constants/route.constants';
 import { DNA_BACKEND_URL } from '$constants/system.constants';
 import { getAccessToken } from '$features/auth/utils';
-import { checkIfItsAnInvalidTokenError, getGraphQlErrorCode } from '$features/error-handler/utils/error-code.utils';
-import {
-  checkIsDirectusError, directusLoginErrorHandler, directusRequestErrorHandler, getDirectusError,
-} from '$features/error-handler/utils/error-handler.utils';
+import { directusLoginErrorHandler, directusRequestErrorHandler } from '$features/error-handler/utils/error-handler.utils';
 import type DirectusError from '$interfaces/directus-error.interface';
 import { decrementFetchesBeingPerformed, incrementFetchesBeingPerformed } from '$stores/fetches-being-performed.store';
 import type DirectusClients from '$types/directus-clients.type';
@@ -72,36 +66,6 @@ export class DirectusClientSdk extends DirectusSdk {
       return undefined;
     } finally {
       decrementFetchesBeingPerformed();
-    }
-  }
-}
-
-/**
- * Directus Sveltekit Server methods
- */
-export class DirectusServerSdk extends DirectusSdk {
-  static getAuthenticatedClient(accessToken: string): DirectusClients {
-    return this.getInstance().with(staticToken(accessToken));
-  }
-
-  static async request<T extends object>(command: RestCommand<T, DirectusSchema>, accessToken: string) {
-    try {
-      return await this.getAuthenticatedClient(accessToken).request<T>(command);
-    } catch (err) {
-      if (checkIsDirectusError(err)) {
-        const directusError = getDirectusError(err as DirectusError);
-        const code = getGraphQlErrorCode(directusError);
-
-        if (checkIfItsAnInvalidTokenError(code)) {
-          redirect(303, LOGIN_ROUTE);
-        }
-
-        svelteKitError(500, directusError);
-      }
-
-      svelteKitError(500, UNEXPECTED_SERVER_ERROR);
-
-      return null;
     }
   }
 }

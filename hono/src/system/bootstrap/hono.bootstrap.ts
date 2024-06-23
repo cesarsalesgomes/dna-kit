@@ -1,9 +1,9 @@
-import { honoErrorHandler } from '@errors/error.handler';
 import { Hono } from 'hono';
 import { bearerAuth } from 'hono/bearer-auth';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
 
+import { honoErrorHandler } from '@errors/error.handler';
 import cats from '@features/cats';
 
 function bootstrapHono() {
