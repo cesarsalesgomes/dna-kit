@@ -1,9 +1,10 @@
 import { Hono } from 'hono';
 
 import CatRepository from '@repository/cat.repository';
-import type { Cat } from '@types/directus-schema.type';
 
 import CatService from './cat.service';
+
+import type { Cat } from '$types/directus-schema.type';
 
 const app = new Hono();
 

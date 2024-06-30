@@ -4,7 +4,8 @@ import { jsonObjectFrom } from 'kysely/helpers/postgres';
 
 import { DirectusSdk } from '@lib/directus';
 import { KyselyRepository } from '@lib/kysely';
-import type { Cat, KyselySchema } from '@types/directus-schema.type';
+
+import type { Cat, KyselySchema } from '$types/directus-schema.type';
 
 export default class CatRepository {
   static async getCatsWithFamily() {
