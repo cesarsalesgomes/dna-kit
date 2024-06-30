@@ -1,6 +1,5 @@
-import { DirectusClientSdk, DirectusServerSdk } from './directus.sdk';
+import { DirectusClientSdk } from './directus.sdk';
 
 export {
   DirectusClientSdk,
-  DirectusServerSdk,
 };
