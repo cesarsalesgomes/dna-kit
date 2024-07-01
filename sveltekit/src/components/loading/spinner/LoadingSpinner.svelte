@@ -3,7 +3,7 @@
 
 </script>
 
-<div class={`spinner ${tailwindClasses}`} />
+<div class={`spinner ${tailwindClasses}`}></div>
 
 <style>
   .spinner {
