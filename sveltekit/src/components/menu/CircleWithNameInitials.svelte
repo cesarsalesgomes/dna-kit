@@ -1,9 +1,10 @@
 <script lang="ts">
   import { getFirstLetterUppercase } from '$utils/string.utils';
 
-  export let firstName: string | null = '';
-
-  export let lastName: string | null = '';
+  const { firstName, lastName }: {
+    firstName? : string | null,
+    lastName?: string | null
+  } = $props();
 
 </script>
 

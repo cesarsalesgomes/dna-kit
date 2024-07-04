@@ -11,8 +11,8 @@
 
   import { enhance } from '$app/forms';
 
-  let email: string;
-  let password: string;
+  let email = $state('');
+  let password = $state('');
 
   const submitFunction: SubmitFunction = ({ cancel }) => {
     cancel();

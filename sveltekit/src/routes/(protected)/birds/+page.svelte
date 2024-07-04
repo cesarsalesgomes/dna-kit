@@ -3,7 +3,7 @@
   import { LoadErrorHandler } from '$features/error-handler/components';
   import { checkIfIsArrayWithItens } from '$utils/array.utils.js';
 
-  export let data;
+  const { data } = $props();
 </script>
 
 <div class="prose flex flex-col dark:prose-invert">

@@ -10,7 +10,7 @@
 
   import { enhance } from '$app/forms';
 
-  let name: string;
+  let name = $state('');
 
   const onSubmitCatForm: SubmitFunction = async ({ cancel }) => {
     cancel();

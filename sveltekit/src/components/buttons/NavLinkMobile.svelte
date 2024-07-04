@@ -1,10 +1,23 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+
   import { page } from '$app/stores';
 
-  export let route: string;
-  export let routeDescription: string;
+  const { route = '', routeDescription = '' } = $props();
 
-  $: onRoute = $page.url.pathname === route;
+  let onRoute = $state(false);
+
+  function checkOnRoute() {
+    return page.subscribe(({ url }) => {
+      onRoute = url.pathname === route;
+    });
+  }
+
+  onMount(() => {
+    const unsub = checkOnRoute();
+
+    return () => unsub();
+  });
 
 </script>
 

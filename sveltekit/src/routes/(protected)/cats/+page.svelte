@@ -5,7 +5,7 @@
 
   import CreateCat from './components/CreateCat.svelte';
 
-  export let data;
+  const { data } = $props();
 </script>
 
 <div class="prose flex flex-col items-start dark:prose-invert">
