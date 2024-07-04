@@ -1,6 +1,5 @@
 <script lang="ts">
-  export let tailwindClasses: string;
-
+  const { tailwindClasses = '' } = $props();
 </script>
 
 <div class={`spinner ${tailwindClasses}`}></div>

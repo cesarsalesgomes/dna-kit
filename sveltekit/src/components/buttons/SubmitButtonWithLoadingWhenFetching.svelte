@@ -6,9 +6,9 @@
   import { Button } from '$lib/shadcn/components/ui';
   import { fetchesBeingPerformedStore } from '$stores/fetches-being-performed.store';
 
-  export let label: string;
+  const { label = '' } = $props();
 
-  let fetchesBeingPerformed: number;
+  let fetchesBeingPerformed = $state(0);
 
   const unsubscribe = fetchesBeingPerformedStore.subscribe((n) => { fetchesBeingPerformed = n; });
 

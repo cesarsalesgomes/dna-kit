@@ -11,7 +11,7 @@
   import NotificationIcon from './NotificationIcon.svelte';
   import NotificationMessage from './NotificationMessage.svelte';
 
-  let notification: NotificationStoreType;
+  let notification = $state<NotificationStoreType>(null);
 
   onMount(() => {
     notificationStore.subscribe((store) => { notification = store; });

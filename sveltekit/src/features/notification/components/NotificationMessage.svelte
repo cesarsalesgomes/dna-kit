@@ -1,10 +1,10 @@
 <script lang="ts">
   import { NotificationType } from '../enums';
 
-  export let type: NotificationType;
+  const { type } : {type: NotificationType} = $props();
 
-  let labelText: string;
-  let labelColor: string;
+  let labelText = $state('');
+  let labelColor = $state('');
 
   switch (type) {
     case NotificationType.SUCCESS:

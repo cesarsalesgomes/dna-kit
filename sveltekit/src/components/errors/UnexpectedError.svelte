@@ -2,7 +2,7 @@
   import { ClientErrorCodes } from '$enums/error-codes.enum';
   import type GraphQLError from '$interfaces/graphql-error.interface';
 
-  export let error: GraphQLError | null;
+  const { error }: { error: GraphQLError | null } = $props();
 
   function getErrorTitle() {
     const code = error?.extensions?.code;

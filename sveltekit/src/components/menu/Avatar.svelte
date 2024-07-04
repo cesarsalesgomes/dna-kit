@@ -6,9 +6,10 @@
 
   import CircleWithNameInitials from './CircleWithNameInitials.svelte';
 
-  export let me$: Partial<DirectusUsers> | Promise<Partial<DirectusUsers>>;
-
-  export let accessTokenFromServer: string;
+  const { me$, accessTokenFromServer }: {
+    me$: Partial<DirectusUsers> | Promise<Partial<DirectusUsers>>,
+    accessTokenFromServer: string
+  } = $props();
 
   function getUserAvatarUrl(userAvatarId: string | DirectusFiles): string {
     const accessToken = accessTokenFromServer ?? getAccessToken();

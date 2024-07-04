@@ -3,7 +3,7 @@
 
   import { directusServerLoadErrorHandler } from '../utils/error-handler.utils';
 
-  export let error: GraphQLError;
+  const { error }: { error: GraphQLError } = $props();
 
   directusServerLoadErrorHandler(error);
 

@@ -9,11 +9,12 @@
 
   import Avatar from './Avatar.svelte';
 
-  export let me$: Partial<DirectusUsers> | Promise<Partial<DirectusUsers>>;
+  const { me$, accessTokenFromServer }: {
+    me$: Partial<DirectusUsers> | Promise<Partial<DirectusUsers>>,
+    accessTokenFromServer: string
+  } = $props();
 
-  export let accessTokenFromServer: string;
-
-  let showMenu: boolean;
+  let showMenu = $state(false);
 
 </script>
 
