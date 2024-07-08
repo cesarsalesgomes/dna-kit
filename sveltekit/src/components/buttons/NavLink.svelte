@@ -1,15 +1,17 @@
 <script lang="ts">
+  import { getPageState } from '$contexts/page/page.context';
   import { Button } from '$lib/shadcn/components/ui';
 
-  const { route, routeDescription, currentRoute }: {
+  const { route, routeDescription }: {
     route: string,
     routeDescription: string,
-    currentRoute: string
   } = $props();
+
+  const page = getPageState();
 
 </script>
 
-{#if route === currentRoute}
+{#if route === page.currentRoute}
   <Button href={route} size="sm" >{routeDescription}</Button>
 {:else}
   <Button href={route}
