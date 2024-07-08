@@ -1,29 +1,15 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-
   import { Button } from '$lib/shadcn/components/ui';
 
-  import { page } from '$app/stores';
-
-  const { route = '', routeDescription = '' } = $props();
-
-  let onRoute = $state(false);
-
-  function checkOnRoute() {
-    return page.subscribe(({ url }) => {
-      onRoute = url.pathname === route;
-    });
-  }
-
-  onMount(() => {
-    const unsub = checkOnRoute();
-
-    return () => unsub();
-  });
+  const { route, routeDescription, currentRoute }: {
+    route: string,
+    routeDescription: string,
+    currentRoute: string
+  } = $props();
 
 </script>
 
-{#if onRoute}
+{#if route === currentRoute}
   <Button href={route} size="sm" >{routeDescription}</Button>
 {:else}
   <Button href={route}

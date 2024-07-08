@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
 
   import { NavLink, NavLinkMobile } from '$components/buttons';
   import { BellSvg, XMarkSvg, MenuSvg } from '$components/svgs';
@@ -9,12 +10,28 @@
 
   import Avatar from './Avatar.svelte';
 
+  import { page } from '$app/stores';
+
   const { me$, accessTokenFromServer }: {
     me$: Partial<DirectusUsers> | Promise<Partial<DirectusUsers>>,
     accessTokenFromServer: string
   } = $props();
 
   let showMenu = $state(false);
+
+  let currentRoute = $state('');
+
+  function listenToCurrentRoute() {
+    return page.subscribe(({ url }) => {
+      currentRoute = url.pathname;
+    });
+  }
+
+  onMount(() => {
+    const unsub = listenToCurrentRoute();
+
+    return () => unsub();
+  });
 
 </script>
 
@@ -40,8 +57,8 @@
         </div>
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex space-x-4">
-            <NavLink route={CATS_ROUTE} routeDescription='Cats'></NavLink>
-            <NavLink route={BIRDS_ROUTE} routeDescription='Birds'></NavLink>
+            <NavLink route={CATS_ROUTE} routeDescription='Cats' currentRoute={currentRoute}></NavLink>
+            <NavLink route={BIRDS_ROUTE} routeDescription='Birds' currentRoute={currentRoute}></NavLink>
           </div>
         </div>
       </div>
@@ -80,8 +97,8 @@
   {#if showMenu}
     <div class="sm:hidden" id="mobile-menu">
       <div class="space-y-1 px-2 pt-2 pb-3">
-        <NavLinkMobile route={CATS_ROUTE} routeDescription='Cats'></NavLinkMobile>
-        <NavLinkMobile route={BIRDS_ROUTE} routeDescription='Birds'></NavLinkMobile>
+        <NavLinkMobile route={CATS_ROUTE} routeDescription='Cats' currentRoute={currentRoute}></NavLinkMobile>
+        <NavLinkMobile route={BIRDS_ROUTE} routeDescription='Birds' currentRoute={currentRoute}></NavLinkMobile>
       </div>
     </div>
   {/if}
