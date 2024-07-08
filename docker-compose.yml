@@ -65,6 +65,7 @@ services:
       ACCESS_TOKEN_TTL: 1d
       IMPORT_IP_DENY_LIST: "169.254.169.254"
       CORS_ENABLED: "true"
+      CORS_ORIGIN: "true"
 
       AUTH_PROVIDERS: "google"
       AUTH_GOOGLE_DRIVER: "openid"

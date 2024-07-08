@@ -1,29 +1,17 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-
+  import { getPageState } from '$contexts/page/page.context';
   import { Button } from '$lib/shadcn/components/ui';
 
-  import { page } from '$app/stores';
+  const { route, routeDescription }: {
+    route: string,
+    routeDescription: string,
+  } = $props();
 
-  const { route = '', routeDescription = '' } = $props();
-
-  let onRoute = $state(false);
-
-  function checkOnRoute() {
-    return page.subscribe(({ url }) => {
-      onRoute = url.pathname === route;
-    });
-  }
-
-  onMount(() => {
-    const unsub = checkOnRoute();
-
-    return () => unsub();
-  });
+  const page = getPageState();
 
 </script>
 
-{#if onRoute}
+{#if route === page.currentRoute}
   <Button href={route} size="sm" >{routeDescription}</Button>
 {:else}
   <Button href={route}

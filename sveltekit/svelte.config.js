@@ -19,6 +19,7 @@ const config = {
       '$components/*': 'src/components/*',
       '$config/*': 'src/config/*',
       '$constants/*': 'src/constants/*',
+      '$contexts/*': 'src/contexts/*',
       '$enums/*': 'src/enums/*',
       '$features/*': 'src/features/*',
       '$hooks/*': 'src/hooks/*',

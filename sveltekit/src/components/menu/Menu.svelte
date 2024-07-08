@@ -1,5 +1,4 @@
 <script lang="ts">
-
   import { NavLink, NavLinkMobile } from '$components/buttons';
   import { BellSvg, XMarkSvg, MenuSvg } from '$components/svgs';
   import { BIRDS_ROUTE, CATS_ROUTE } from '$constants/route.constants';
