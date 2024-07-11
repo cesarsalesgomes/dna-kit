@@ -2,8 +2,8 @@
   import { createItem } from '@directus/sdk';
   import type { SubmitFunction } from '@sveltejs/kit';
 
+  import { getNotificationState } from '$contexts/notification/notification.context';
   import InvalidateKeys from '$enums/invalidate-keys.enum';
-  import { setNotificationOnSuccess } from '$features/notification/utils/notification.utils';
   import { DirectusClientSdk } from '$lib/directus';
   import { Button, Input } from '$lib/shadcn/components/ui';
   import { invalidateWithLoading } from '$utils/svelte.utils';
@@ -12,13 +12,15 @@
 
   let name = $state('');
 
+  const noticationState = getNotificationState();
+
   const onSubmitCatForm: SubmitFunction = async ({ cancel }) => {
     cancel();
 
     await DirectusClientSdk.request(createItem('cat', { name }), async () => {
       await invalidateWithLoading(InvalidateKeys.Cats);
 
-      setNotificationOnSuccess();
+      noticationState.setNotificationOnSuccess();
     });
   };
 </script>

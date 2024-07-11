@@ -1,5 +1,5 @@
 <script>
-  import { setGlobalContexts } from '$contexts/contexts.utils';
+  import { setGlobalContexts } from '$contexts/context.utils';
   import { Notification } from '$features/notification/components';
 
   import './styles.css';
@@ -10,7 +10,8 @@
 
 </script>
 
+<Notification/>
+
 <main class="min-h-screen bg-gray-50 dark:bg-gray-900">
-  <Notification/>
   {@render children()}
 </main>
