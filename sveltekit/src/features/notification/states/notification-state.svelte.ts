@@ -7,6 +7,8 @@ import type { Notification } from '../types/notification.type';
 export class NotificationState {
   notification = $state<Notification>();
 
+  notificationTimeout: any;
+
   setNotification(message: string, type: NotificationType) {
     this.notification = { message, type };
   }
@@ -16,7 +18,9 @@ export class NotificationState {
   }
 
   hideNotificationAfterDisplaySeconds(notificationDisplaySeconds: number) {
-    setTimeout(() => this.hideNotification(), notificationDisplaySeconds * 1000);
+    if (this.notificationTimeout) { clearTimeout(this.notificationTimeout); }
+
+    this.notificationTimeout = setTimeout(() => { this.hideNotification(); this.notificationTimeout = null; }, notificationDisplaySeconds * 1000);
   }
 
   setNotificationOnSuccess(message?: string, notificationDisplayTimeInSeconds?: number) {
