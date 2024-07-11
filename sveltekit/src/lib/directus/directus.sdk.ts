@@ -6,6 +6,7 @@ import {
 import { DNA_BACKEND_URL } from '$constants/system.constants';
 import { getAccessToken } from '$features/auth/utils';
 import { directusLoginErrorHandler, directusRequestErrorHandler } from '$features/error-handler/utils/error-handler.utils';
+import type { NotificationState } from '$features/notification/states/notification-state.svelte';
 import type DirectusError from '$interfaces/directus-error.interface';
 import { decrementFetchesBeingPerformed, incrementFetchesBeingPerformed } from '$stores/fetches-being-performed.store';
 import type DirectusClients from '$types/directus-clients.type';
@@ -14,12 +15,18 @@ import type { DirectusSchema } from '$types/directus-schema.type';
 class DirectusSdk {
   static instance: DirectusClient<DirectusSchema> & RestClient<DirectusSchema>;
 
+  static notificationState: NotificationState;
+
   static getInstance() {
     if (!DirectusSdk.instance) {
       DirectusSdk.instance = createDirectus<DirectusSchema>(DNA_BACKEND_URL).with(rest());
     }
 
     return DirectusSdk.instance;
+  }
+
+  static setNotificationState(notificationState: NotificationState) {
+    this.notificationState = notificationState;
   }
 }
 
@@ -39,7 +46,7 @@ export class DirectusClientSdk extends DirectusSdk {
 
       return res;
     } catch (error) {
-      directusLoginErrorHandler(error as DirectusError);
+      directusLoginErrorHandler(error as DirectusError, this.notificationState);
 
       return null;
     } finally {
@@ -61,7 +68,7 @@ export class DirectusClientSdk extends DirectusSdk {
 
       return res;
     } catch (error) {
-      directusRequestErrorHandler(error as DirectusError);
+      directusRequestErrorHandler(error as DirectusError, this.notificationState);
 
       return undefined;
     } finally {

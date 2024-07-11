@@ -1,7 +1,7 @@
 <script lang="ts">
   import { NotificationType } from '../enums';
 
-  const { type } : {type: NotificationType} = $props();
+  const { type } : { type: NotificationType } = $props();
 
   let labelText = $state('');
   let labelColor = $state('');
