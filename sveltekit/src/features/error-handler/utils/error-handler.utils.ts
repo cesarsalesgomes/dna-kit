@@ -1,11 +1,11 @@
 import { UNEXPECTED_ERROR_NOTIFICATION } from '$constants/notification.constants';
 import { LOGIN_ROUTE } from '$constants/route.constants';
 import { NOTIFICATION_DISPLAY_TIME_IN_SECONDS } from '$constants/system.constants';
+import type ForbiddenAccessModalState from '$contexts/forbidden-access-modal/forbidden-access-modal-state.svelte';
 import { NotificationType } from '$features/notification/enums';
 import type { NotificationState } from '$features/notification/states/notification-state.svelte';
 import type DirectusError from '$interfaces/directus-error.interface';
 import type GraphQLError from '$interfaces/graphql-error.interface';
-import { setShowForbiddenAccessModalStore } from '$stores/show-forbidden-access-modal.store';
 import { checkIfIsArrayWithItens } from '$utils/array.utils';
 
 import { checkIfItsAForbiddenError, checkIfItsAnInvalidTokenError, getGraphQlErrorCode } from './error-code.utils';
@@ -66,6 +66,7 @@ export function getDirectusError({ errors }: DirectusError): GraphQLError {
 
 export function directusServerLoadErrorHandler(
   error: GraphQLError,
+  forbiddenAccessModalState: ForbiddenAccessModalState,
   notificationState: NotificationState,
   notificationDisplayTimeInSeconds?: number,
 ) {
@@ -75,7 +76,7 @@ export function directusServerLoadErrorHandler(
     if (checkIfItsAnInvalidTokenError(code)) {
       goto(LOGIN_ROUTE);
     } else if (checkIfItsAForbiddenError(code)) {
-      setShowForbiddenAccessModalStore(true);
+      forbiddenAccessModalState.setShow(true);
     } else {
       notificationState.setNotification(error.message ?? UNEXPECTED_ERROR_NOTIFICATION, NotificationType.ERROR);
     }

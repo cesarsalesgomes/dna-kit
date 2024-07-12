@@ -4,11 +4,11 @@ import {
 } from '@directus/sdk';
 
 import { DNA_BACKEND_URL } from '$constants/system.constants';
+import type FetchesBeingPerformedState from '$contexts/fetches-being-performed/fetches-being-performed-state.svelte';
 import { getAccessToken } from '$features/auth/utils';
 import { directusLoginErrorHandler, directusRequestErrorHandler } from '$features/error-handler/utils/error-handler.utils';
 import type { NotificationState } from '$features/notification/states/notification-state.svelte';
 import type DirectusError from '$interfaces/directus-error.interface';
-import { decrementFetchesBeingPerformed, incrementFetchesBeingPerformed } from '$stores/fetches-being-performed.store';
 import type DirectusClients from '$types/directus-clients.type';
 import type { DirectusSchema } from '$types/directus-schema.type';
 
@@ -16,6 +16,8 @@ class DirectusSdk {
   static instance: DirectusClient<DirectusSchema> & RestClient<DirectusSchema>;
 
   static notificationState: NotificationState;
+
+  static fetchesBeingPerformedState: FetchesBeingPerformedState;
 
   static getInstance() {
     if (!DirectusSdk.instance) {
@@ -28,6 +30,10 @@ class DirectusSdk {
   static setNotificationState(notificationState: NotificationState) {
     this.notificationState = notificationState;
   }
+
+  static setFetchesBeingPerformedState(fetchesBeingPerformedState: FetchesBeingPerformedState) {
+    this.fetchesBeingPerformedState = fetchesBeingPerformedState;
+  }
 }
 
 /**
@@ -36,7 +42,7 @@ class DirectusSdk {
 export class DirectusClientSdk extends DirectusSdk {
   static async login(email: string, password: string, onSucess?: (data: AuthenticationData) => void) {
     try {
-      incrementFetchesBeingPerformed();
+      this.fetchesBeingPerformedState.incrementFetchesBeingPerformed();
 
       const directusClient = this.getInstance().with(authentication('cookie'));
 
@@ -50,7 +56,7 @@ export class DirectusClientSdk extends DirectusSdk {
 
       return null;
     } finally {
-      decrementFetchesBeingPerformed();
+      this.fetchesBeingPerformedState.decrementFetchesBeingPerformed();
     }
   }
 
@@ -60,7 +66,7 @@ export class DirectusClientSdk extends DirectusSdk {
 
   static async request<T extends object>(command: RestCommand<T, DirectusSchema>, onSucess?: () => void) {
     try {
-      incrementFetchesBeingPerformed();
+      this.fetchesBeingPerformedState.incrementFetchesBeingPerformed();
 
       const res = await this.getAuthenticatedClient().request<T>(command);
 
@@ -72,7 +78,7 @@ export class DirectusClientSdk extends DirectusSdk {
 
       return undefined;
     } finally {
-      decrementFetchesBeingPerformed();
+      this.fetchesBeingPerformedState.decrementFetchesBeingPerformed();
     }
   }
 }

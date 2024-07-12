@@ -1,12 +1,9 @@
 <script lang="ts">
-  import { get } from 'svelte/store';
-
   import { UnexpectedError } from '$components/errors';
+  import { getPageState } from '$contexts/page/page.context';
 
-  import { page } from '$app/stores';
-
-  const { error } = get(page);
+  const page = getPageState();
 
 </script>
 
-<UnexpectedError error={error}/>
+<UnexpectedError error={page.error}/>
