@@ -1,22 +1,24 @@
 <script lang="ts">
   import { MENU_NAVBAR_HEIGHT } from '$constants/styles.constants';
+  import { getForbiddenAccessModalState } from '$contexts/forbidden-access-modal/forbidden-access-modal.context';
   import NotificationIcon from '$features/notification/components/NotificationIcon.svelte';
   import { NotificationType } from '$features/notification/enums';
-  import { setShowForbiddenAccessModalStore, showForbiddenAccessModalStore } from '$stores/show-forbidden-access-modal.store';
   import { checkIfNavigatedToDifferentRoute } from '$utils/route.utils';
 
   import { navigating } from '$app/stores';
 
   const height = `calc(100vh - ${MENU_NAVBAR_HEIGHT}`;
 
+  const forbiddenAccessModalState = getForbiddenAccessModalState();
+
   // Hide modal with route change to a different path
   navigating.subscribe((nav) => {
-    if (nav && checkIfNavigatedToDifferentRoute(nav)) setShowForbiddenAccessModalStore(false);
+    if (nav && checkIfNavigatedToDifferentRoute(nav)) forbiddenAccessModalState.setShow(false);
   });
 
 </script>
 
-{#if $showForbiddenAccessModalStore}
+{#if forbiddenAccessModalState.show}
   <div class="absolute z-10 flex w-screen items-center justify-center bg-black/25 px-4"
     style="height: {height};"
     aria-labelledby="modal-title"

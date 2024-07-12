@@ -1,16 +1,14 @@
 <script lang="ts">
-  import { get } from 'svelte/store';
-
   import { PageNotFoundError, UnexpectedError } from '$components/errors';
   import { NOT_FOUND_SERVER_ERROR_MESSAGE } from '$constants/error.constants';
+  import { getPageState } from '$contexts/page/page.context';
 
-  import { page } from '$app/stores';
+  const page = getPageState();
 
-  const { error } = get(page);
 </script>
 
-{#if error?.message === NOT_FOUND_SERVER_ERROR_MESSAGE}
+{#if page.error?.message === NOT_FOUND_SERVER_ERROR_MESSAGE}
   <PageNotFoundError/>
 {:else}
-  <UnexpectedError error={error}/>
+  <UnexpectedError error={page.error}/>
 {/if}

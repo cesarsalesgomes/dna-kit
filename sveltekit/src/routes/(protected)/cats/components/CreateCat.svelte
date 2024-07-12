@@ -2,6 +2,7 @@
   import { createItem } from '@directus/sdk';
   import type { SubmitFunction } from '@sveltejs/kit';
 
+  import { getFetchesBeingPerformedState } from '$contexts/fetches-being-performed/fetches-being-performed.context';
   import { getNotificationState } from '$contexts/notification/notification.context';
   import InvalidateKeys from '$enums/invalidate-keys.enum';
   import { DirectusClientSdk } from '$lib/directus';
@@ -13,12 +14,13 @@
   let name = $state('');
 
   const noticationState = getNotificationState();
+  const fetchesBeingPerformedState = getFetchesBeingPerformedState();
 
   const onSubmitCatForm: SubmitFunction = async ({ cancel }) => {
     cancel();
 
     await DirectusClientSdk.request(createItem('cat', { name }), async () => {
-      await invalidateWithLoading(InvalidateKeys.Cats);
+      await invalidateWithLoading(InvalidateKeys.Cats, fetchesBeingPerformedState);
 
       noticationState.setNotificationOnSuccess();
     });

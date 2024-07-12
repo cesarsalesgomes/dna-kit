@@ -1,12 +1,14 @@
 <script lang="ts">
-  import { fetchesBeingPerformedStore } from '$stores/fetches-being-performed.store';
+  import { getFetchesBeingPerformedState } from '$contexts/fetches-being-performed/fetches-being-performed.context';
 
   import LoadingLayout from './LoadingLayout.svelte';
 
   import { navigating } from '$app/stores';
 
+  const fetchesBeingPerformedState = getFetchesBeingPerformedState();
+
 </script>
 
-{#if ($fetchesBeingPerformedStore || $navigating)}
+{#if (fetchesBeingPerformedState.count || $navigating)}
   <LoadingLayout />
 {/if}

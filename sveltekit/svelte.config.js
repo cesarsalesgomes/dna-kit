@@ -29,7 +29,6 @@ const config = {
       '$providers/*': 'src/providers/*',
       '$repository/*': 'src/repository/*',
       '$routes/*': 'src/routes/*',
-      '$stores/*': 'src/stores/*',
       '$test/*': 'src/test/*',
       '$types/*': 'src/types/*',
       '$utils/*': 'src/utils/*',

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { getForbiddenAccessModalState } from '$contexts/forbidden-access-modal/forbidden-access-modal.context';
   import { getNotificationState } from '$contexts/notification/notification.context';
   import type GraphQLError from '$interfaces/graphql-error.interface';
 
@@ -6,6 +7,6 @@
 
   const { error }: { error: GraphQLError } = $props();
 
-  directusServerLoadErrorHandler(error, getNotificationState());
+  directusServerLoadErrorHandler(error, getForbiddenAccessModalState(), getNotificationState());
 
 </script>
