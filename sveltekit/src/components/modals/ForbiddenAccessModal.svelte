@@ -7,7 +7,7 @@
 
   import { navigating } from '$app/stores';
 
-  const height = `calc(100vh - ${MENU_NAVBAR_HEIGHT}`;
+  const height = `calc(100vh - ${MENU_NAVBAR_HEIGHT})`;
 
   const forbiddenAccessModalState = getForbiddenAccessModalState();
 
