@@ -41,7 +41,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@directus/sdk": "^16.0.2",
+    "@directus/sdk": "^17.0.0",
     "bits-ui": "^0.21.11",
     "clsx": "^2.1.0",
     "js-cookie": "^3.0.5",
