@@ -20,7 +20,7 @@
     "@types/cookie": "^0.6.0",
     "@types/js-cookie": "^3.0.6",
     "@types/pg": "^8.11.4",
-    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/eslint-plugin": "^8.7.0",
     "@typescript-eslint/parser": "^5.62.0",
     "autoprefixer": "^10.4.19",
     "eslint": "^8.57.0",
